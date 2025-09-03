@@ -14,29 +14,38 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  keepalive:
+  keepalive-app1:
     runs-on: ubuntu-latest
     timeout-minutes: 8
 
     steps:
-      - name: KeepAlive via container
+      - name: KeepAlive APP1
         uses: docker://ghcr.io/uncleluogithub/cf-keepalive:latest
         env:
-          CF_USERNAME:  ${{ secrets.CF_USERNAME }}
-          CF_PASSWORD:  ${{ secrets.CF_PASSWORD }}
-          CF_API:       ${{ secrets.CF_API }}
-          CF_ORG:       ${{ secrets.CF_ORG }}
-          CF_SPACE:     ${{ secrets.CF_SPACE }}
-          CF_APP:       ${{ secrets.CF_APP }}
-
-          CF_USERNAME2: ${{ secrets.CF_USERNAME2 }}
-          CF_PASSWORD2: ${{ secrets.CF_PASSWORD2 }}
-          CF_API2:      ${{ secrets.CF_API2 }}
-          CF_ORG2:      ${{ secrets.CF_ORG2 }}
-          CF_SPACE2:    ${{ secrets.CF_SPACE2 }}
-          CF_APP2:      ${{ secrets.CF_APP2 }}
-
+          CF_USERNAME: ${{ secrets.CF_USERNAME }}
+          CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+          CF_API:      ${{ secrets.CF_API }}
+          CF_ORG:      ${{ secrets.CF_ORG }}
+          CF_SPACE:    ${{ secrets.CF_SPACE }}
+          CF_APP:      ${{ secrets.CF_APP }}
           CF_SET_PROCESS_HC: "true"
-          # 调试时打开
+          # DEBUG: "1"
+          # CF_TRACE: "true"
+
+  keepalive-app2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - name: KeepAlive APP2
+        uses: docker://ghcr.io/uncleluogithub/cf-keepalive:latest
+        env:
+          CF_USERNAME: ${{ secrets.CF_USERNAME2 }}
+          CF_PASSWORD: ${{ secrets.CF_PASSWORD2 }}
+          CF_API:      ${{ secrets.CF_API2 }}
+          CF_ORG:      ${{ secrets.CF_ORG2 }}
+          CF_SPACE:    ${{ secrets.CF_SPACE2 }}
+          CF_APP:      ${{ secrets.CF_APP2 }}
+          CF_SET_PROCESS_HC: "true"
           # DEBUG: "1"
           # CF_TRACE: "true"
