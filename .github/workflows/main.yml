@@ -49,3 +49,21 @@ jobs:
           CF_SET_PROCESS_HC: "true"
           # DEBUG: "1"
           # CF_TRACE: "true"
+
+  keepalive-app3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - name: KeepAlive APP3
+        uses: docker://ghcr.io/uncleluogithub/cf-keepalive:latest
+        env:
+          CF_USERNAME: ${{ secrets.CF_USERNAME3 }}
+          CF_PASSWORD: ${{ secrets.CF_PASSWORD3 }}
+          CF_API:      ${{ secrets.CF_API3 }}
+          CF_ORG:      ${{ secrets.CF_ORG3 }}
+          CF_SPACE:    ${{ secrets.CF_SPACE3 }}
+          CF_APP:      ${{ secrets.CF_APP3 }}
+          CF_SET_PROCESS_HC: "true"
+          # DEBUG: "1"
+          # CF_TRACE: "true"
