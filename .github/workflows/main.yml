@@ -2,10 +2,10 @@ name: SAP CF APP保活
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
-    - cron: "*/10 * * * *"
-    - cron: "*/15 * * * *"
-    - cron: "*/20 * * * *"
+    - cron: "*/5 0 * * *"
+    - cron: "*/10 0 * * *"
+    - cron: "*/15 0 * * *"
+    - cron: "*/20 0 * * *"
     - cron: "*/30 * * * *"
   workflow_dispatch:
 
@@ -14,12 +14,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  keepalive-app1:
+  keepalive:
     runs-on: ubuntu-latest
     timeout-minutes: 8
 
     steps:
-      - name: KeepAlive APP1
+      - name: KeepAlive via container
         uses: docker://ghcr.io/uncleluogithub/cf-keepalive:latest
         env:
           CF_USERNAME: ${{ secrets.CF_USERNAME }}
@@ -29,41 +29,6 @@ jobs:
           CF_SPACE:    ${{ secrets.CF_SPACE }}
           CF_APP:      ${{ secrets.CF_APP }}
           CF_SET_PROCESS_HC: "true"
-          # DEBUG: "1"
-          # CF_TRACE: "true"
-
-  keepalive-app2:
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-
-    steps:
-      - name: KeepAlive APP2
-        uses: docker://ghcr.io/uncleluogithub/cf-keepalive:latest
-        env:
-          CF_USERNAME: ${{ secrets.CF_USERNAME2 }}
-          CF_PASSWORD: ${{ secrets.CF_PASSWORD2 }}
-          CF_API:      ${{ secrets.CF_API2 }}
-          CF_ORG:      ${{ secrets.CF_ORG2 }}
-          CF_SPACE:    ${{ secrets.CF_SPACE2 }}
-          CF_APP:      ${{ secrets.CF_APP2 }}
-          CF_SET_PROCESS_HC: "true"
-          # DEBUG: "1"
-          # CF_TRACE: "true"
-
-  keepalive-app3:
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-
-    steps:
-      - name: KeepAlive APP3
-        uses: docker://ghcr.io/uncleluogithub/cf-keepalive:latest
-        env:
-          CF_USERNAME: ${{ secrets.CF_USERNAME3 }}
-          CF_PASSWORD: ${{ secrets.CF_PASSWORD3 }}
-          CF_API:      ${{ secrets.CF_API3 }}
-          CF_ORG:      ${{ secrets.CF_ORG3 }}
-          CF_SPACE:    ${{ secrets.CF_SPACE3 }}
-          CF_APP:      ${{ secrets.CF_APP3 }}
-          CF_SET_PROCESS_HC: "true"
+          # 调试时打开
           # DEBUG: "1"
           # CF_TRACE: "true"
